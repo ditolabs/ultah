@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Eh ada yg ultah nih..</title>
+<script src="config.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f4f4f2;--ink:#2b2b2b;--yellow:#f7d94c;--crumb:#c98a3d;--cream:#fbf3e4;--red:#b3262e;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+:root[data-theme="dark"]{--bg:#f4f4f2;--ink:#2b2b2b}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#f4f4f2;--ink:#2b2b2b}}
+*{box-sizing:border-box}
+html,body{min-height:100%;margin:0}
+body{background:var(--bg);color:var(--ink);font-family:"Patrick Hand","Comic Sans MS",cursive;text-align:center;overflow-x:hidden}
+main{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px;max-width:420px;margin:0 auto}
+.scr{display:none;width:100%}
+.scr.on{display:block;animation:pop .4s ease-out}
+@keyframes pop{from{opacity:0;transform:scale(.94)}to{opacity:1;transform:none}}
+h1{font-size:2rem;font-weight:400;line-height:1.15;margin:0 0 26px;transform:rotate(-2deg)}
+h2{font-size:1.25rem;font-weight:400;margin:0 0 18px;transform:rotate(-2deg)}
+p{margin:0}
+.cake{width:190px;display:block;margin:0 auto}
+.flame{transform-origin:100px 52px;animation:flick .5s infinite alternate ease-in-out}
+.out .flame{animation:none;opacity:0}
+.smoke{opacity:0}
+.out .smoke{animation:smoke 1.6s ease-out forwards}
+@keyframes flick{from{transform:rotate(-3deg)}to{transform:scale(.92,1.08) rotate(3deg)}}
+@keyframes smoke{0%{opacity:.6}100%{opacity:0;transform:translateY(-26px)}}
+.sub{font-size:1.05rem;margin:18px 0 20px;min-height:1.5em}
+.pill{display:inline-block;font:inherit;font-size:1.25rem;letter-spacing:.04em;background:var(--yellow);color:var(--ink);border:2.5px solid var(--ink);border-radius:999px;padding:8px 34px;cursor:pointer;box-shadow:3px 3px 0 var(--ink);text-decoration:none}
+.pill:active{transform:translate(3px,3px);box-shadow:none}
+.menu{display:flex;justify-content:center;gap:26px}
+.menu button{font:inherit;font-size:1rem;background:none;border:0;color:var(--ink);cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:6px;padding:6px}
+.menu button:hover svg,.menu button:focus-visible svg{transform:rotate(-6deg) scale(1.06)}
+.menu svg{width:74px;height:60px;transition:transform .15s}
+.foot{font-size:.95rem;color:#4a4a45;margin-top:26px}
+.letter{font-size:1.1rem;line-height:1.45;margin-top:16px;white-space:pre-line;overflow-wrap:anywhere}
+.env{width:230px;display:block;margin:0 auto}
+.player{display:flex;margin:0 auto;width:290px;height:128px;position:relative;transform:rotate(-4deg)}
+.vinyl{position:absolute;right:-26px;top:14px;width:100px;height:100px;border-radius:50%;background:radial-gradient(circle,var(--red) 0 14%,#111 15%)}
+.playing .vinyl{animation:spin 2.4s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.art{position:relative;width:116px;margin:8px;border-radius:8px;background:linear-gradient(#bfe0f5 0 58%,#8db92b 58%);display:flex;align-items:center;justify-content:center;border:2px solid #fff}
+.pan{position:relative;flex:1;background:var(--red);border-radius:10px 0 0 10px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;padding-right:8px;margin-left:-8px}
+.bars{display:flex;align-items:center;gap:3px;height:34px}
+.bars i{width:3px;height:30%;background:#f7c9a8;border-radius:2px}
+.playing .bars i{animation:bar .5s infinite alternate}
+.bars i:nth-child(2n){animation-delay:.15s}.bars i:nth-child(3n){animation-delay:.3s}
+@keyframes bar{to{height:100%}}
+.play{width:34px;height:34px;border-radius:50%;border:2px solid #fff;background:#fff;color:var(--red);font-size:.95rem;cursor:pointer}
+.yt{margin:18px auto 0;width:290px;aspect-ratio:16/9;border-radius:10px;overflow:hidden;background:#000}
+.yt iframe{width:100%;height:100%;border:0;display:block}
+.notes{font-size:2rem;margin-bottom:6px;color:#4c7a3a;transform:rotate(-6deg)}
+.collage{position:relative;display:grid;grid-template-columns:repeat(3,1fr);grid-auto-rows:62px;gap:6px;width:260px;margin:0 auto}
+.collage.n{grid-template-columns:repeat(2,1fr);grid-auto-rows:auto;width:250px;gap:10px}
+.collage.n .ph{aspect-ratio:1}
+.collage.n .ph:nth-child(odd){transform:rotate(-2deg)}.collage.n .ph:nth-child(even){transform:rotate(2deg)}
+.ph{background:linear-gradient(#bfe0f5 0 58%,#8db92b 58%);border:2px solid #fff;box-shadow:0 1px 4px rgba(0,0,0,.25);overflow:hidden}
+.ph img{width:100%;height:100%;object-fit:cover;display:block}
+.ph.gone img{display:none}
+.stk{position:absolute;font-size:1.5rem}
+.cap{font-size:.95rem;text-align:left;width:260px;margin:0 auto 10px;transform:rotate(-3deg)}
+nav{display:flex;gap:12px;margin-top:26px;min-height:40px}
+.rd{width:38px;height:38px;border-radius:50%;border:2px solid #cdb26a;background:#fff;color:var(--ink);font-size:1.1rem;cursor:pointer;display:none}
+nav.back #bk{display:block;border-color:#7aa7c7}
+nav.rst #rs{display:block}
+.pill:focus-visible,.play:focus-visible,.rd:focus-visible,.menu button:focus-visible{outline:3px solid var(--red);outline-offset:3px}
+.bit{position:fixed;top:-12px;width:9px;height:14px;border-radius:2px;animation:fall linear forwards;pointer-events:none}
+@keyframes fall{to{transform:translateY(110vh) rotate(540deg)}}
+[hidden]{display:none!important}
+@media (prefers-reduced-motion:reduce){.flame,.out .smoke,.scr.on,.bit,.playing .vinyl,.playing .bars i{animation:none}}
+</style>
+</head>
+<body>
+<main>
+  <section class="scr on" id="s-load"><p class="sub">Sebentar ya...</p></section>
+
+  <section class="scr" id="s-err">
+    <h2 id="e-t"></h2>
+    <p class="letter" id="e-p"></p>
+    <p style="margin-top:22px" id="e-a"><a class="pill" href="buat.html">Buat ucapan sendiri</a></p>
+  </section>
+
+  <section class="scr" id="s-intro">
+    <h1>Eh ada yg<br>ultah nih..</h1>
+    <svg class="cake" viewBox="0 0 200 190" role="img" aria-label="Cupcake dengan lilin menyala">
+      <g class="smoke" fill="none" stroke="#999" stroke-width="2" stroke-linecap="round"><path d="M100 40c-6-8 6-12 0-20"/><path d="M106 42c-5-7 5-10 0-17"/></g>
+      <g class="flame"><path d="M100 18c10 12 8 24 0 30-8-6-10-18 0-30z" fill="#d8473a" stroke="#2b2b2b" stroke-width="2"/><path d="M100 30c4 6 3 12 0 15-3-3-4-9 0-15z" fill="#f7d94c"/></g>
+      <rect x="96" y="48" width="9" height="42" rx="2" fill="#5d6b78" stroke="#2b2b2b" stroke-width="2" transform="rotate(4 100 70)"/>
+      <path d="M42 100c4-24 26-34 58-34s56 10 60 34c8 2 12 10 6 18-6 6-16 6-22 2-8 8-24 8-32 0-8 8-24 8-32 0-6 4-16 4-22-2-6-8-2-16 4-18z" fill="#fbf3e4" stroke="#2b2b2b" stroke-width="2.5" stroke-linejoin="round"/>
+      <g fill="#2b2b2b"><circle cx="72" cy="92" r="2.5"/><circle cx="98" cy="86" r="2.5"/><circle cx="124" cy="94" r="2.5"/><circle cx="86" cy="106" r="2.5"/><circle cx="114" cy="108" r="2.5"/><circle cx="140" cy="106" r="2.5"/></g>
+      <path d="M50 124h100l-12 56c-1 5-5 8-10 8H72c-5 0-9-3-10-8z" fill="#c98a3d" stroke="#2b2b2b" stroke-width="2.5" stroke-linejoin="round"/>
+      <g stroke="#2b2b2b" stroke-width="1.5" opacity=".45"><path d="M76 130l6 52"/><path d="M100 130v58"/><path d="M124 130l-6 52"/></g>
+    </svg>
+    <p class="sub" id="sub">"Jangan cuma diliatin..."</p>
+    <button class="pill" id="tiup" type="button">TIUPPP</button>
+  </section>
+
+  <section class="scr" id="s-menu">
+    <h2>Kamu mau pilih yang mana? :)</h2>
+    <div class="menu">
+      <button type="button" data-go="surat"><svg viewBox="0 0 74 60" aria-hidden="true"><rect x="4" y="8" width="66" height="44" rx="3" fill="#a3212a"/><path d="M4 10l33 24 33-24M4 50l26-20M70 50L44 30" fill="none" stroke="#7d171e" stroke-width="2"/></svg>Surat</button>
+      <button type="button" data-go="musik"><svg viewBox="0 0 74 60" aria-hidden="true"><path d="M15 38V28a22 22 0 0144 0v10" fill="none" stroke="#555" stroke-width="5" stroke-linecap="round"/><rect x="9" y="34" width="13" height="20" rx="6" fill="#e8e8e8" stroke="#555" stroke-width="2.5"/><rect x="52" y="34" width="13" height="20" rx="6" fill="#e8e8e8" stroke="#555" stroke-width="2.5"/></svg>Musik</button>
+      <button type="button" data-go="foto" id="b-foto"><svg viewBox="0 0 74 60" aria-hidden="true"><rect x="22" y="4" width="16" height="9" rx="2" fill="#8a9a6a" stroke="#2b2b2b" stroke-width="2"/><rect x="6" y="11" width="62" height="42" rx="6" fill="#a9c27a" stroke="#2b2b2b" stroke-width="2.5"/><rect x="6" y="11" width="14" height="42" rx="6" fill="#d5605a"/><circle cx="42" cy="32" r="14" fill="#556b2f" stroke="#2b2b2b" stroke-width="2.5"/><circle cx="42" cy="32" r="7" fill="#9bb86a"/></svg>Foto</button>
+    </div>
+    <p class="foot" id="exp"></p>
+  </section>
+
+  <section class="scr" id="s-surat">
+    <svg class="env" viewBox="0 0 220 200" role="img" aria-label="Amplop merah terbuka">
+      <path d="M20 100L110 38l90 62z" fill="#e9b7a9" stroke="#8f1d24" stroke-width="2" stroke-linejoin="round"/>
+      <rect x="44" y="26" width="132" height="116" fill="#f6e6b8"/>
+      <text x="56" y="48" font-size="11" fill="#2b2b2b" id="to"></text><text x="56" y="63" font-size="11" fill="#2b2b2b" id="fr"></text>
+      <path d="M110 108c-22-16-18-34-6-34 4 0 6 2 6 5 0-3 2-5 6-5 12 0 16 18-6 34z" fill="none" stroke="#a06a3a" stroke-width="3"/>
+      <path d="M20 100l90 55 90-55v86H20z" fill="#b3262e" stroke="#8f1d24" stroke-width="2" stroke-linejoin="round"/>
+      <path d="M20 186l70-52M200 186l-70-52" stroke="#8f1d24" stroke-width="2"/>
+    </svg>
+    <p class="letter" id="isi"></p>
+  </section>
+
+  <section class="scr" id="s-musik">
+    <div class="notes" aria-hidden="true">𝄞 ♪ ♫ ♪</div>
+    <div class="player" id="pl">
+      <div class="vinyl"></div>
+      <div class="art" aria-hidden="true"><svg width="46" height="38" viewBox="0 0 74 60"><path d="M15 38V28a22 22 0 0144 0v10" fill="none" stroke="#555" stroke-width="5" stroke-linecap="round"/><rect x="9" y="34" width="13" height="20" rx="6" fill="#e8e8e8" stroke="#555" stroke-width="2.5"/><rect x="52" y="34" width="13" height="20" rx="6" fill="#e8e8e8" stroke="#555" stroke-width="2.5"/></svg></div>
+      <div class="pan"><div class="bars" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div><button class="play" id="play" type="button" aria-label="Putar lagu">▶</button></div>
+    </div>
+    <div class="yt" id="ytbox" hidden></div>
+    <p class="letter" id="judul" style="margin-top:22px" hidden></p>
+    <p class="letter" id="pesanlagu" style="margin-top:12px"></p>
+  </section>
+
+  <section class="scr" id="s-foto">
+    <p class="cap" id="cap"></p>
+    <div class="collage" id="col"></div>
+  </section>
+
+  <nav id="nav"><button class="rd" id="rs" type="button" aria-label="Mulai dari awal">↻</button><button class="rd" id="bk" type="button" aria-label="Kembali ke pilihan">«</button></nav>
+</main>
+<script>
+(function(){
+  var API=window.ULTAH_API||"", $=function(i){return document.getElementById(i)};
+  var id=(new URLSearchParams(location.search).get("id")||"").trim();
+  var scr=document.querySelectorAll(".scr"), nav=$("nav"), cur="load", done=false, D=null;
+
+  function go(s){
+    if(cur==="musik"&&s!=="musik")stopMusic();
+    cur=s;
+    scr.forEach(function(x){x.classList.toggle("on",x.id==="s-"+s)});
+    nav.className=(s==="intro"||s==="load"||s==="err")?"":(s==="menu"?"rst":"rst back");
+  }
+  function fail(t,p,again){$("e-t").textContent=t;$("e-p").textContent=p;go("err")}
+
+  document.querySelectorAll("[data-go]").forEach(function(b){b.addEventListener("click",function(){go(b.dataset.go)})});
+  $("bk").onclick=function(){go("menu")};
+  $("rs").onclick=function(){done=false;$("s-intro").classList.remove("out");$("tiup").style.display="";$("sub").textContent='"Jangan cuma diliatin..."';go("intro")};
+
+  var cols=["#f7d94c","#d8473a","#5d9cec","#8bc34a","#f48fb1"];
+  function confetti(){for(var i=0;i<60;i++){var b=document.createElement("i");b.className="bit";b.style.left=Math.random()*100+"vw";b.style.background=cols[i%5];b.style.animationDuration=(2+Math.random()*2.5)+"s";b.style.animationDelay=(Math.random()*.6)+"s";document.body.appendChild(b);setTimeout(function(e){e.remove()},6000,b)}}
+  $("tiup").onclick=function(){
+    if(done)return;done=true;
+    $("s-intro").classList.add("out");$("tiup").style.display="none";
+    $("sub").textContent="Selamat ulang tahun, "+D.nama+"!";
+    try{navigator.vibrate&&navigator.vibrate(60)}catch(e){}
+    setTimeout(confetti,300);
+    setTimeout(function(){if(cur==="intro")go("menu")},2300);
+  };
+
+  // Foto
+  var POS=[[1,1,1,2,-3],[2,1,2,2,2],[1,3,1,2,3],[2,3,1,3,-2],[3,3,1,2,2],[1,5,1,1,-4],[3,5,1,2,-2]];
+  var STK=[["🚀","28%","30%"],["🌷","82%","88%"],["🎵","88%","42%"],["⭐","-6%","46%"],["🚗","-6%","92%"]];
+  function buildFoto(n){
+    var c=$("col");c.textContent="";
+    var full=n===7;if(!full)c.classList.add("n");
+    for(var i=0;i<n;i++){
+      var d=document.createElement("div");d.className="ph";
+      if(full){var t=POS[i];d.style.cssText="grid-column:"+t[0]+"/span "+t[2]+";grid-row:"+t[1]+"/span "+t[3]+";transform:rotate("+t[4]+"deg)"}
+      var im=document.createElement("img");im.alt="Foto "+(i+1);im.loading="lazy";
+      im.onerror=function(){this.parentNode.classList.add("gone")};
+      im.src=API+"/api/foto/"+id+"/"+i;
+      d.appendChild(im);c.appendChild(d);
+    }
+    if(full)STK.forEach(function(s){var e=document.createElement("span");e.className="stk";e.textContent=s[0];e.style.left=s[1];e.style.top=s[2];e.setAttribute("aria-hidden","true");c.appendChild(e)});
+  }
+
+  // Musik
+  var ac=null,timer=null,playing=false;
+  var mel=[[392,.75],[392,.25],[440,1],[392,1],[523,1],[494,2],[392,.75],[392,.25],[440,1],[392,1],[587,1],[523,2],[392,.75],[392,.25],[784,1],[659,1],[523,1],[494,1],[440,2],[698,.75],[698,.25],[659,1],[523,1],[587,1],[523,2]];
+  function setPlaying(p){playing=p;$("pl").classList.toggle("playing",p);$("play").textContent=p?"❚❚":"▶";$("play").setAttribute("aria-label",p?"Hentikan lagu":"Putar lagu")}
+  function melody(){
+    var C=window.AudioContext||window.webkitAudioContext;if(!C)return;
+    ac=new C();var t=ac.currentTime+.05,beat=.45;
+    mel.forEach(function(n){
+      var o=ac.createOscillator(),g=ac.createGain(),d=n[1]*beat;
+      o.type="triangle";o.frequency.value=n[0];
+      g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(.25,t+.03);g.gain.exponentialRampToValueAtTime(.001,t+d*.95);
+      o.connect(g);g.connect(ac.destination);o.start(t);o.stop(t+d);t+=d;
+    });
+    setPlaying(true);timer=setTimeout(stopMusic,(t-ac.currentTime)*1000+300);
+  }
+  function stopMusic(){
+    clearTimeout(timer);
+    if(ac){try{ac.close()}catch(e){}ac=null}
+    $("ytbox").textContent="";$("ytbox").hidden=true;
+    setPlaying(false);
+  }
+  $("play").onclick=function(){
+    if(playing)return stopMusic();
+    var l=D.lagu;
+    if(l.tipe==="yt"&&/^[\w-]{11}$/.test(l.id||"")){
+      var f=document.createElement("iframe");
+      f.src="https://www.youtube-nocookie.com/embed/"+l.id+"?autoplay=1&playsinline=1&rel=0";
+      f.allow="autoplay; encrypted-media";f.title="Pemutar YouTube";f.referrerPolicy="strict-origin-when-cross-origin";
+      $("ytbox").appendChild(f);$("ytbox").hidden=false;setPlaying(true);
+    }else melody();
+  };
+
+  function start(d){
+    D=d;
+    var nama=d.nama||"kamu",n=Math.max(0,Math.min(7,+d.foto||0));
+    document.title="Ucapan untuk "+nama;
+    $("to").textContent="To: "+nama;$("fr").textContent="From: "+(d.dari||"aku");
+    $("isi").textContent=d.surat||"";
+    $("pesanlagu").textContent=d.pesanLagu||"Semoga pas kamu muter lagu ini, harimu jadi lebih hangat dan penuh hal kecil yang bikin kamu senyum.";
+    if(d.lagu&&d.lagu.judul){$("judul").textContent=d.lagu.judul;$("judul").hidden=false}
+    $("cap").textContent=d.caption||"ini kamu, versi paling aku suka :)";
+    buildFoto(n);$("b-foto").hidden=n===0;
+    if(d.berlakuSampai)$("exp").textContent="Ucapan ini aktif sampai "+new Date(d.berlakuSampai).toLocaleDateString("id-ID",{day:"numeric",month:"long"})+".";
+    go("intro");
+  }
+
+  async function load(){
+    if(!id)return fail("Halaman ucapan","Link ini belum lengkap. Minta link yang benar dari pengirimnya, atau buat ucapan sendiri.");
+    if(/^demo/.test(id))return start({nama:"Olivia",dari:"Dito",lagu:{tipe:"bawaan"},surat:"Ini contoh surat. Isi aslinya akan muncul dari link yang dikirim pengirim.",foto:0,berlakuSampai:Date.now()+7*864e5});
+    if(!/^[a-z0-9]{10}$/.test(id)||!API)return fail("Link tidak ditemukan","Cek lagi linknya.");
+    try{
+      var r=await fetch(API+"/api/ucapan/"+id);
+      if(r.status===410)return fail("Link sudah kedaluwarsa","Ucapan hanya aktif 7 hari, dan yang ini sudah lewat.");
+      if(!r.ok)return fail("Link tidak ditemukan","Cek lagi linknya.");
+      start(await r.json());
+    }catch(e){fail("Gagal memuat","Cek koneksi internetmu, lalu muat ulang halaman ini.")}
+  }
+  load();
+})();
+</script>
+</body>
+</html>
