@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Bikin ucapan ultah sendiri</title>
+<script src="config.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f4f4f2;--ink:#2b2b2b;--mut:#4a4a45;--line:#8a8a82;--yellow:#f7d94c;--red:#b3262e;box-sizing:border-box}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:18px/1.35 "Patrick Hand","Comic Sans MS",cursive;padding:max(36px,env(safe-area-inset-top)) 24px max(40px,env(safe-area-inset-bottom))}
+main{max-width:420px;margin:0 auto;display:flex;flex-direction:column;gap:34px}
+h1{margin:0 0 8px;font-size:34px;font-weight:400;line-height:1.1;transform:rotate(-2deg)}
+h2{margin:0;font-size:26px;font-weight:400}
+p{margin:0}.mut{color:var(--mut)}.sm{font-size:16px}
+section{display:flex;flex-direction:column;gap:14px}
+.hd{display:flex;align-items:center;gap:12px}
+label{display:block;margin-bottom:6px}
+input[type=text],input[type=url],textarea{width:100%;border:2px solid var(--ink);border-radius:12px;background:#fff;padding:0 14px;height:48px;font:inherit;color:var(--ink)}
+textarea{padding:12px 14px;resize:none;height:92px}
+#isi{height:190px}
+input::placeholder,textarea::placeholder{color:var(--mut);opacity:.8}
+.seg{display:flex;gap:8px}
+.seg button{flex:1;height:44px;border:2px solid var(--ink);border-radius:999px;background:#fff;font:inherit;color:var(--ink);cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--yellow)}
+.cnt{text-align:right;font-size:15px;color:var(--mut);margin-top:4px}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.slot{position:relative;aspect-ratio:1}
+.add{width:100%;height:100%;border:2px dashed var(--line);border-radius:10px;background:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;padding:0;overflow:hidden}
+.add img{width:100%;height:100%;object-fit:cover;display:block}
+.del{position:absolute;top:-6px;right:-6px;width:28px;height:28px;border-radius:50%;border:2px solid var(--ink);background:#fff;color:var(--ink);font:16px/1 inherit;cursor:pointer;padding:0}
+.go{align-self:center;height:52px;padding:0 44px;border:2.5px solid var(--ink);border-radius:999px;background:var(--yellow);box-shadow:3px 3px 0 var(--ink);font:22px "Patrick Hand",cursive;letter-spacing:.04em;color:var(--ink);cursor:pointer}
+.go:active{transform:translate(3px,3px);box-shadow:none}
+.go:disabled{opacity:.6;cursor:wait}
+button:focus-visible,input:focus-visible,textarea:focus-visible{outline:3px solid var(--red);outline-offset:3px}
+.msg{text-align:center;min-height:1.4em}.err{color:var(--red)}
+.res{display:none;border:2px solid var(--ink);border-radius:12px;background:#fff;padding:16px;text-align:center;gap:12px;flex-direction:column}
+.res.on{display:flex}
+.res output{display:block;word-break:break-all;font-size:17px}
+.res .row{display:flex;gap:8px}
+.res .row button{flex:1;height:44px;border:2px solid var(--ink);border-radius:999px;background:var(--yellow);font:inherit;color:var(--ink);cursor:pointer}
+[hidden]{display:none!important}
+</style>
+</head>
+<body>
+<main>
+<div>
+  <h1>Bikin ucapan ultah sendiri</h1>
+  <p class="mut">Isi lagu, surat, dan foto. Tekan Generate, jadilah website ucapan yang bisa kamu kirim lewat link.</p>
+</div>
+
+<section>
+  <div><label for="nama">Buat siapa?</label><input id="nama" type="text" maxlength="30" placeholder="Nama penerima" autocomplete="off"></div>
+  <div><label for="dari">Dari siapa?</label><input id="dari" type="text" maxlength="30" placeholder="Nama kamu" autocomplete="off"></div>
+</section>
+
+<section>
+  <div class="hd"><svg width="44" height="36" viewBox="0 0 74 60" aria-hidden="true"><path d="M15 38V28a22 22 0 0144 0v10" fill="none" stroke="#555" stroke-width="5" stroke-linecap="round"/><rect x="9" y="34" width="13" height="20" rx="6" fill="#e8e8e8" stroke="#555" stroke-width="2.5"/><rect x="52" y="34" width="13" height="20" rx="6" fill="#e8e8e8" stroke="#555" stroke-width="2.5"/></svg><h2>Musik</h2></div>
+  <div class="seg"><button type="button" id="m-yt" aria-pressed="true">Link YouTube</button><button type="button" id="m-bw" aria-pressed="false">Lagu bawaan</button></div>
+  <div id="yt-box"><label for="yt">Link lagu dari YouTube</label><input id="yt" type="url" inputmode="url" placeholder="https://youtu.be/..." autocomplete="off"></div>
+  <p id="bw-note" class="mut sm" hidden>Melodi "Selamat Ulang Tahun" akan dimainkan.</p>
+  <div><label for="judul">Judul lagu</label><input id="judul" type="text" maxlength="60" placeholder="Contoh: lagu kesukaan dia"></div>
+  <div><label for="pesanlagu">Pesan di bawah pemutar</label><textarea id="pesanlagu" maxlength="200" placeholder="Semoga pas kamu muter lagu ini..."></textarea></div>
+</section>
+
+<section>
+  <div class="hd"><svg width="44" height="36" viewBox="0 0 74 60" aria-hidden="true"><rect x="4" y="8" width="66" height="44" rx="3" fill="#a3212a"/><path d="M4 10l33 24 33-24M4 50l26-20M70 50L44 30" fill="none" stroke="#7d171e" stroke-width="2"/></svg><h2>Surat</h2></div>
+  <div><label for="isi">Isi surat</label><textarea id="isi" maxlength="600" placeholder="Tulis surat untuk dia di sini..."></textarea><div class="cnt" id="cnt">0 / 600</div></div>
+</section>
+
+<section>
+  <div class="hd"><svg width="44" height="36" viewBox="0 0 74 60" aria-hidden="true"><rect x="22" y="4" width="16" height="9" rx="2" fill="#8a9a6a" stroke="#2b2b2b" stroke-width="2"/><rect x="6" y="11" width="62" height="42" rx="6" fill="#a9c27a" stroke="#2b2b2b" stroke-width="2.5"/><rect x="6" y="11" width="14" height="42" rx="6" fill="#d5605a"/><circle cx="42" cy="32" r="14" fill="#556b2f" stroke="#2b2b2b" stroke-width="2.5"/><circle cx="42" cy="32" r="7" fill="#9bb86a"/></svg><h2>Foto</h2></div>
+  <div><label for="cap">Tulisan di atas kolase</label><input id="cap" type="text" maxlength="60" placeholder="ini kamu, versi paling aku suka :)"></div>
+  <p class="mut sm">Tambah sampai 7 foto. Urutan sama dengan kolase. Foto dikecilkan otomatis sebelum dikirim.</p>
+  <div class="grid" id="grid"></div>
+  <input type="file" id="file" accept="image/*" multiple hidden>
+</section>
+
+<section>
+  <button class="go" id="go" type="button">Generate</button>
+  <p class="msg" id="msg" role="status" aria-live="polite"></p>
+  <div class="res" id="res">
+    <p>Link ucapanmu sudah jadi:</p>
+    <output id="out"></output>
+    <div class="row"><button type="button" id="cp">Salin link</button><button type="button" id="sh" hidden>Bagikan</button></div>
+    <p class="mut sm">Link dan isinya otomatis terhapus setelah 7 hari.</p>
+  </div>
+</section>
+</main>
+<script>
+(function(){
+  // Alamat Worker diatur di config.js. Kosong = mode demo.
+  var API=window.ULTAH_API||"";
+  var MAX=7, $=function(i){return document.getElementById(i)};
+  var photos=new Array(MAX).fill(null), mode="yt";
+
+  $("isi").addEventListener("input",function(){$("cnt").textContent=this.value.length+" / 600"});
+  function setMode(m){
+    mode=m;
+    $("m-yt").setAttribute("aria-pressed",m==="yt");$("m-bw").setAttribute("aria-pressed",m==="bw");
+    $("yt-box").hidden=m!=="yt";$("bw-note").hidden=m!=="bw";
+  }
+  $("m-yt").onclick=function(){setMode("yt")};$("m-bw").onclick=function(){setMode("bw")};
+
+  function ytId(u){
+    var m=(u||"").trim().match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?(?:.*&)?v=|shorts\/|embed\/))([\w-]{11})/);
+    return m?m[1]:null;
+  }
+
+  // Foto
+  function render(){
+    var g=$("grid");g.textContent="";
+    photos.forEach(function(p,i){
+      var s=document.createElement("div");s.className="slot";
+      var b=document.createElement("button");b.type="button";b.className="add";
+      if(p){
+        var im=document.createElement("img");im.src=p.url;im.alt="Foto "+(i+1);b.appendChild(im);
+        b.setAttribute("aria-label","Ganti foto "+(i+1));
+        var d=document.createElement("button");d.type="button";d.className="del";d.textContent="×";d.setAttribute("aria-label","Hapus foto "+(i+1));
+        d.onclick=function(e){e.stopPropagation();URL.revokeObjectURL(p.url);photos[i]=null;render()};
+        s.appendChild(b);s.appendChild(d);
+      }else{
+        b.setAttribute("aria-label","Tambah foto "+(i+1));
+        b.innerHTML='<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#4a4a45" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>';
+        s.appendChild(b);
+      }
+      b.onclick=function(){target=i;$("file").click()};
+      g.appendChild(s);
+    });
+  }
+  var target=0;
+  function compress(f){
+    return new Promise(function(res,rej){
+      var url=URL.createObjectURL(f),im=new Image();
+      im.onload=function(){
+        var k=Math.min(1,1000/Math.max(im.width,im.height)),c=document.createElement("canvas");
+        c.width=Math.round(im.width*k);c.height=Math.round(im.height*k);
+        c.getContext("2d").drawImage(im,0,0,c.width,c.height);URL.revokeObjectURL(url);
+        c.toBlob(function(b){b?res(b):rej()},"image/jpeg",.8);
+      };
+      im.onerror=function(){URL.revokeObjectURL(url);rej()};
+      im.src=url;
+    });
+  }
+  $("file").onchange=async function(){
+    var files=Array.from(this.files);this.value="";
+    var bad=0;
+    for(var f of files){
+      var i=photos[target]===null?target:photos.indexOf(null);
+      if(i<0)break;
+      try{var b=await compress(f);photos[i]={blob:b,url:URL.createObjectURL(b)};target=i}catch(e){bad++}
+    }
+    render();
+    $("msg").className="msg"+(bad?" err":"");
+    $("msg").textContent=bad?bad+" foto tidak bisa dibaca. Coba format JPG atau PNG.":"";
+  };
+  render();
+
+  // Generate
+  function show(t,err){$("msg").className="msg"+(err?" err":"");$("msg").textContent=t}
+  $("go").onclick=async function(){
+    var nama=$("nama").value.trim(),surat=$("isi").value.trim(),vid=null;
+    if(!nama)return show("Isi nama penerima dulu.",1);
+    if(!surat)return show("Suratnya masih kosong.",1);
+    if(mode==="yt"){vid=ytId($("yt").value);if(!vid)return show("Link YouTube belum valid.",1)}
+    var data={nama:nama,dari:$("dari").value.trim(),lagu:{tipe:mode==="yt"?"yt":"bawaan",id:vid,judul:$("judul").value.trim()},pesanLagu:$("pesanlagu").value.trim(),surat:surat,caption:$("cap").value.trim()};
+    var btn=this;btn.disabled=true;show("Membuat ucapan...");$("res").classList.remove("on");
+    try{
+      var id;
+      if(!API){id="demo"+Math.random().toString(36).slice(2,8);show("Mode demo: belum terhubung ke Worker, data tidak disimpan.")}
+      else{
+        var fd=new FormData();fd.append("data",JSON.stringify(data));
+        photos.filter(Boolean).forEach(function(p,i){fd.append("foto"+i,p.blob,"foto"+i+".jpg")});
+        var r=await fetch(API+"/api/buat",{method:"POST",body:fd});
+        if(!r.ok)throw new Error((await r.text())||"Gagal");
+        id=(await r.json()).id;show("");
+      }
+      var link=new URL("./",location.href).href+"?id="+encodeURIComponent(id);
+      $("out").textContent=link;$("res").classList.add("on");$("res").scrollIntoView({behavior:"smooth",block:"center"});
+    }catch(e){show("Gagal membuat ucapan. Coba lagi sebentar.",1)}
+    btn.disabled=false;
+  };
+  $("cp").onclick=function(){
+    var t=$("out").textContent;
+    (navigator.clipboard?navigator.clipboard.writeText(t):Promise.reject()).then(function(){$("cp").textContent="Tersalin"},function(){var r=document.createRange();r.selectNodeContents($("out"));var s=getSelection();s.removeAllRanges();s.addRange(r)});
+  };
+  if(navigator.share){$("sh").hidden=false;$("sh").onclick=function(){navigator.share({title:"Ucapan ulang tahun",url:$("out").textContent}).catch(function(){})}}
+})();
+</script>
+</body>
+</html>
