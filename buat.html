@@ -173,12 +173,12 @@ button:focus-visible,input:focus-visible,textarea:focus-visible{outline:3px soli
         var fd=new FormData();fd.append("data",JSON.stringify(data));
         photos.filter(Boolean).forEach(function(p,i){fd.append("foto"+i,p.blob,"foto"+i+".jpg")});
         var r=await fetch(API+"/api/buat",{method:"POST",body:fd});
-        if(!r.ok)throw new Error((await r.text())||"Gagal");
+        if(!r.ok){var t=await r.text();try{t=JSON.parse(t).error||t}catch(_){}throw new Error(r.status+": "+String(t).slice(0,100))}
         id=(await r.json()).id;show("");
       }
       var link=new URL("./",location.href).href+"?id="+encodeURIComponent(id);
       $("out").textContent=link;$("res").classList.add("on");$("res").scrollIntoView({behavior:"smooth",block:"center"});
-    }catch(e){show("Gagal membuat ucapan. Coba lagi sebentar.",1)}
+    }catch(e){show("Gagal membuat ucapan ("+(e&&e.message?e.message:"koneksi bermasalah")+"). Coba lagi sebentar.",1)}
     btn.disabled=false;
   };
   $("cp").onclick=function(){
